@@ -32,7 +32,7 @@
 		"modmenu": [
 			{
 				"adapter": "kotlin",
-				"value": "net.logandark.commandmonitor.config.CommandMonitorConfig"
+				"value": "net.logandark.commandmonitor.config.CommandMonitorModMenu"
 			}
 		]
 	},
