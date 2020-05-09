@@ -2,9 +2,9 @@
 <project version="4">
   <component name="ProjectModuleManager">
     <modules>
-      <module fileurl="file://$PROJECT_DIR$/.idea/fabric-boilerplate.iml" filepath="$PROJECT_DIR$/.idea/fabric-boilerplate.iml" />
-      <module fileurl="file://$PROJECT_DIR$/.idea/modules/fabric-boilerplate.main.iml" filepath="$PROJECT_DIR$/.idea/modules/fabric-boilerplate.main.iml" />
-      <module fileurl="file://$PROJECT_DIR$/.idea/modules/fabric-boilerplate.test.iml" filepath="$PROJECT_DIR$/.idea/modules/fabric-boilerplate.test.iml" />
+      <module fileurl="file://$PROJECT_DIR$/.idea/modules/fabric-command-monitor.iml" filepath="$PROJECT_DIR$/.idea/modules/fabric-command-monitor.iml" />
+      <module fileurl="file://$PROJECT_DIR$/.idea/modules/fabric-command-monitor.main.iml" filepath="$PROJECT_DIR$/.idea/modules/fabric-command-monitor.main.iml" />
+      <module fileurl="file://$PROJECT_DIR$/.idea/modules/fabric-command-monitor.test.iml" filepath="$PROJECT_DIR$/.idea/modules/fabric-command-monitor.test.iml" />
       <module fileurl="file://$PROJECT_DIR$/.idea/modules/ld-config.iml" filepath="$PROJECT_DIR$/.idea/modules/ld-config.iml" />
       <module fileurl="file://$PROJECT_DIR$/.idea/modules/ld-config.main.iml" filepath="$PROJECT_DIR$/.idea/modules/ld-config.main.iml" />
       <module fileurl="file://$PROJECT_DIR$/.idea/modules/ld-config.test.iml" filepath="$PROJECT_DIR$/.idea/modules/ld-config.test.iml" />

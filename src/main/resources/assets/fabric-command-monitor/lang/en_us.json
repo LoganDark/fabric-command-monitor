@@ -1,0 +1,15 @@
+{
+	"fabric-command-monitor.config.category.default": "Default",
+	"fabric-command-monitor.config.use-ops-list": "Use Ops List",
+	"fabric-command-monitor.log.attempt": "%s attempted to run: %s",
+	"fabric-command-monitor.log.run": "%s ran command: %s",
+	"fabric-command-monitor.log.click_to_copy": "Click to copy to clipboard",
+	"fabric-command-monitor.log.name": "CommandMonitor",
+	"fabric-command-monitor.command.chat-logs.enabled": "Enabled chat logs for %s",
+	"fabric-command-monitor.command.chat-logs.disabled": "Enabled chat logs for %s",
+	"fabric-command-monitor.command.use-ops-list.enabled": "Using ops list for command monitor",
+	"fabric-command-monitor.command.use-ops-list.disabled": "Not using ops list for command monitor",
+	"fabric-command-monitor.command.privileged": "Privileged %s to use the command monitor",
+	"fabric-command-monitor.command.unprivileged": "Unprivileged %s from the command monitor",
+	"fabric-command-monitor.command.privileges": "List of privileged users:"
+}

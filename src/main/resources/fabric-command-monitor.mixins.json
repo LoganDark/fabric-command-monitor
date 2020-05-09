@@ -1,0 +1,18 @@
+{
+	"required": true,
+	"package": "net.logandark.commandmonitor.mixin",
+	"compatibilityLevel": "JAVA_8",
+	"mixins": [
+		"MixinCommandManager",
+		"MixinLanguage",
+		"MixinMinecraftDedicatedServer",
+		"MixinServerCommandSource",
+		"MixinServerConfigList",
+		"MixinSharedConstants"
+	],
+	"client": ["AntiCoronavirus", "MixinIntegratedServer"],
+	"server": [],
+	"injectors": {
+		"defaultRequire": 1
+	}
+}

@@ -4,6 +4,8 @@
       <root url="jar://$PROJECT_DIR$/../ld-config/.gradle/loom-cache/remapped_mods/fabric-commands-v0-0.1.2+b7f9825d38@net.fabricmc.yarn.1_15_2.1.15.2+build.15-v2.jar!/" />
     </CLASSES>
     <JAVADOC />
-    <SOURCES />
+    <SOURCES>
+      <root url="jar://$PROJECT_DIR$/../ld-config/.gradle/loom-cache/remapped_mods/fabric-commands-v0-0.1.2+b7f9825d38@net.fabricmc.yarn.1_15_2.1.15.2+build.15-v2-sources.jar!/" />
+    </SOURCES>
   </library>
 </component>
