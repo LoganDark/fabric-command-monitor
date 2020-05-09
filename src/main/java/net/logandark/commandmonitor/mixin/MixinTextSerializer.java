@@ -7,6 +7,7 @@ import net.logandark.commandmonitor.SSTranslatableText;
 import net.logandark.commandmonitor.ducks.TextSerializerDuck;
 import net.minecraft.text.Style;
 import net.minecraft.text.Text;
+import org.jetbrains.annotations.NotNull;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.gen.Invoker;
 import org.spongepowered.asm.mixin.injection.At;
@@ -18,7 +19,11 @@ import java.lang.reflect.Type;
 @Mixin(Text.Serializer.class)
 public abstract class MixinTextSerializer implements TextSerializerDuck {
 	@Invoker
-	public abstract void callAddStyle(Style style, JsonObject json, JsonSerializationContext context);
+	public abstract void callAddStyle(
+		@NotNull Style style,
+		@NotNull JsonObject json,
+		@NotNull JsonSerializationContext context
+	);
 
 	@Inject(
 		at = @At("HEAD"),

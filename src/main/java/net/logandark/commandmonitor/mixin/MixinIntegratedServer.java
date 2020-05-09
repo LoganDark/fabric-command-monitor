@@ -9,7 +9,7 @@ import org.spongepowered.asm.mixin.injection.Inject;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfoReturnable;
 
 @Mixin(IntegratedServer.class)
-public class MixinIntegratedServer {
+class MixinIntegratedServer {
 	@Inject(
 		at = @At("HEAD"),
 		method = "setupServer"

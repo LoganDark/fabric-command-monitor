@@ -64,7 +64,7 @@ object CommandMonitor : ModInitializer {
 	 * Right now, it only returns true if you are the owner of a singleplayer
 	 * server
 	 */
-	fun useOpsListFor(profile: GameProfile): Boolean {
+	private fun useOpsListFor(profile: GameProfile): Boolean {
 		return if (CommandMonitorConfig.useOpsList.get())
 			true
 		else

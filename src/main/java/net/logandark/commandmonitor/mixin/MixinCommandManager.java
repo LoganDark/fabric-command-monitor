@@ -15,7 +15,7 @@ import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfoReturnable;
 
 @Mixin(CommandManager.class)
-public abstract class MixinCommandManager {
+abstract class MixinCommandManager {
 	@Shadow
 	@Final
 	private CommandDispatcher<ServerCommandSource> dispatcher;

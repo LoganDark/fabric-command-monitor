@@ -9,10 +9,12 @@ import org.spongepowered.asm.mixin.injection.Inject;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 
 @Mixin(SharedConstants.class)
-public abstract class MixinSharedConstants {
+abstract class MixinSharedConstants {
+	@SuppressWarnings("unused")
 	@Shadow
 	public static boolean isDevelopment;
 
+	@SuppressWarnings("UnresolvedMixinReference")
 	@Inject(
 		at = @At("RETURN"),
 		method = "<clinit>"
