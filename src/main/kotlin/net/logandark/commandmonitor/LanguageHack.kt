@@ -9,14 +9,16 @@ import net.minecraft.util.Language
 import org.apache.logging.log4j.core.util.Closer
 import java.io.InputStreamReader
 import java.nio.charset.StandardCharsets
+import java.nio.file.Files
 
 object LanguageHack {
 	fun activate(modid: String) {
 		val language = Language.getInstance() as MixinLanguage
-		val inputStream = FabricLoader.getInstance()
-			.getModContainer(modid).get()
-			.getPath("assets/$modid/lang/en_us.json")
-			.toFile().inputStream()
+		val inputStream = Files.newInputStream(
+			FabricLoader.getInstance()
+				.getModContainer(modid).get()
+				.getPath("assets/$modid/lang/en_us.json")
+		)
 
 		try {
 			val jsonObject = Gson().fromJson(
