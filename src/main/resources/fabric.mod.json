@@ -21,7 +21,7 @@
 	"icon": "assets/fabric-command-monitor/icon.png",
 
 	"environment": "*",
-	"accesswidener": "fabric-command-monitor.accesswidener",
+	"accessWidener": "fabric-command-monitor.accesswidener",
 	"entrypoints": {
 		"main": [
 			{
