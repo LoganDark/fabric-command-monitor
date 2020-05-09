@@ -11,7 +11,7 @@
 		"MixinSharedConstants"
 	],
 	"client": ["AntiCoronavirus", "MixinIntegratedServer"],
-	"server": ["MixinTextSerializer"],
+	"server": ["MixinTextSerializer", "MixinTranslatableText"],
 	"injectors": {
 		"defaultRequire": 1
 	}

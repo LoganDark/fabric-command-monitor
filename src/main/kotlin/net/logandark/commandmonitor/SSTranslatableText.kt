@@ -4,9 +4,9 @@ import com.google.gson.JsonArray
 import com.google.gson.JsonObject
 import com.google.gson.JsonSerializationContext
 import net.logandark.commandmonitor.ducks.TextSerializerDuck
+import net.logandark.commandmonitor.mixin.MixinTranslatableText
 import net.minecraft.text.Text
 import net.minecraft.text.TranslatableText
-import net.minecraft.util.Language
 
 /**
  * Like [TranslatableText], except it translates on the server before sending it
@@ -21,6 +21,9 @@ class SSTranslatableText(
 		serializer: Text.Serializer,
 		ctx: JsonSerializationContext
 	): JsonObject {
+		@Suppress("CAST_NEVER_SUCCEEDS")
+		(this as MixinTranslatableText).callUpdateTranslations()
+
 		val jsonObject = JsonObject()
 		val betterSerializer = serializer as TextSerializerDuck
 
@@ -31,11 +34,8 @@ class SSTranslatableText(
 
 		val extra = JsonArray()
 
-		if (translations.isEmpty())
-			jsonObject.addProperty("text", Language.getInstance().translate(key))
-		else
-			for (translation in translations)
-				extra.add(serializer.serialize(translation, translation.javaClass, ctx))
+		for (translation in translations)
+			extra.add(serializer.serialize(translation, translation.javaClass, ctx))
 
 		for (sibling in siblings)
 			extra.add(serializer.serialize(sibling, sibling.javaClass, ctx))
