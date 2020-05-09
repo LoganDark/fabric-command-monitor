@@ -1,9 +1,9 @@
 package net.logandark.commandmonitor.hook
 
 import net.logandark.commandmonitor.CommandMonitor
+import net.logandark.commandmonitor.SSTranslatableText
 import net.minecraft.text.LiteralText
 import net.minecraft.text.Text
-import net.minecraft.text.TranslatableText
 import net.minecraft.util.Formatting
 
 object CommandMonitorLogger {
@@ -12,8 +12,10 @@ object CommandMonitorLogger {
 			.styled {
 				it.color = Formatting.DARK_AQUA
 			}
-			.append(TranslatableText(CommandMonitor.translationKey("log.name"))
-				.styled {
+			.append(
+				SSTranslatableText(
+					CommandMonitor.translationKey("log.name")
+				).styled {
 					it.color = Formatting.AQUA
 				}
 			)

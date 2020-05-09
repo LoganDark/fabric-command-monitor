@@ -14,7 +14,6 @@ import net.minecraft.server.command.ServerCommandSource
 import net.minecraft.text.ClickEvent
 import net.minecraft.text.HoverEvent
 import net.minecraft.text.LiteralText
-import net.minecraft.text.TranslatableText
 import net.minecraft.util.Identifier
 
 // For support join https://discord.gg/v6v4pMv
@@ -97,13 +96,13 @@ object CommandMonitor : ModInitializer {
 		val authorized = CommandExecutionHandler.preCommand(manager, source, command)
 
 		CommandMonitorLogger.log(
-			TranslatableText(
+			SSTranslatableText(
 				translationKey(if (authorized) "log.run" else "log.attempt"),
 				source.displayName,
 				LiteralText(command).styled {
 					it.hoverEvent = HoverEvent(
 						HoverEvent.Action.SHOW_TEXT,
-						TranslatableText(translationKey("log.click_to_copy"))
+						SSTranslatableText(translationKey("log.click_to_copy"))
 					)
 
 					it.clickEvent = ClickEvent(

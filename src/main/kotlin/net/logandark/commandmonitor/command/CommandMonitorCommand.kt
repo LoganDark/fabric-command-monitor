@@ -4,6 +4,7 @@ import com.mojang.brigadier.CommandDispatcher
 import com.mojang.brigadier.builder.ArgumentBuilder
 import com.mojang.brigadier.context.CommandContext
 import net.logandark.commandmonitor.CommandMonitor
+import net.logandark.commandmonitor.SSTranslatableText
 import net.logandark.commandmonitor.config.CommandMonitorConfig
 import net.logandark.commandmonitor.mixin.MixinServerCommandSource
 import net.logandark.commandmonitor.permissions.Permissions
@@ -15,7 +16,6 @@ import net.minecraft.text.ClickEvent
 import net.minecraft.text.HoverEvent
 import net.minecraft.text.LiteralText
 import net.minecraft.text.Text
-import net.minecraft.text.TranslatableText
 import net.minecraft.util.Formatting
 
 object CommandMonitorCommand {
@@ -40,7 +40,7 @@ object CommandMonitorCommand {
 			Permissions.setCanSeeChatLogs(player.gameProfile, true)
 
 			ctx.source.sendFeedback(
-				TranslatableText(
+				SSTranslatableText(
 					CommandMonitor.translationKey("command.chat-logs.enabled"),
 					player.displayName
 				),
@@ -54,9 +54,25 @@ object CommandMonitorCommand {
 			Permissions.setCanSeeChatLogs(player.gameProfile, false)
 
 			ctx.source.sendFeedback(
-				TranslatableText(
+				SSTranslatableText(
 					CommandMonitor.translationKey("command.chat-logs.disabled"),
 					player.displayName
+				),
+				false
+			)
+
+			1
+		}
+
+		useOpsList.executes { ctx ->
+			ctx.source.sendFeedback(
+				SSTranslatableText(
+					CommandMonitor.translationKey(
+						if (CommandMonitorConfig.useOpsList.get())
+							"command.use-ops-list.enabled"
+						else
+							"command.use-ops-list.disabled"
+					)
 				),
 				false
 			)
@@ -68,8 +84,15 @@ object CommandMonitorCommand {
 			CommandMonitorConfig.useOpsList.set(true)
 			CommandMonitorConfig.save()
 
+			val playerManager = CommandMonitor.server.playerManager
+			for (player in playerManager.playerList) {
+				if (!Permissions.isPrivileged(player.gameProfile) && playerManager.isOperator(player.gameProfile)) {
+					playerManager.sendCommandTree(player)
+				}
+			}
+
 			ctx.source.sendFeedback(
-				TranslatableText(
+				SSTranslatableText(
 					CommandMonitor.translationKey("command.use-ops-list.enabled")
 				),
 				false
@@ -82,8 +105,15 @@ object CommandMonitorCommand {
 			CommandMonitorConfig.useOpsList.set(false)
 			CommandMonitorConfig.save()
 
+			val playerManager = CommandMonitor.server.playerManager
+			for (player in playerManager.playerList) {
+				if (!Permissions.isPrivileged(player.gameProfile) && playerManager.isOperator(player.gameProfile)) {
+					playerManager.sendCommandTree(player)
+				}
+			}
+
 			ctx.source.sendFeedback(
-				TranslatableText(
+				SSTranslatableText(
 					CommandMonitor.translationKey("command.use-ops-list.disabled")
 				),
 				false
@@ -97,7 +127,7 @@ object CommandMonitorCommand {
 			CommandMonitor.server.playerManager.sendCommandTree(player)
 
 			ctx.source.sendFeedback(
-				TranslatableText(
+				SSTranslatableText(
 					CommandMonitor.translationKey("command.privileged"),
 					player.displayName
 				),
@@ -112,7 +142,7 @@ object CommandMonitorCommand {
 			CommandMonitor.server.playerManager.sendCommandTree(player)
 
 			ctx.source.sendFeedback(
-				TranslatableText(
+				SSTranslatableText(
 					CommandMonitor.translationKey("command.unprivileged"),
 					player.displayName
 				),
@@ -124,7 +154,7 @@ object CommandMonitorCommand {
 
 		privileges.executes { ctx ->
 			ctx.source.sendFeedback(
-				TranslatableText(
+				SSTranslatableText(
 					CommandMonitor.translationKey("command.privileges")
 				),
 				false
