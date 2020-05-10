@@ -7,6 +7,8 @@
 	"fabric-command-monitor.log.name": "CommandMonitor",
 	"fabric-command-monitor.command.chat-logs.enabled": "Enabled chat logs for %s",
 	"fabric-command-monitor.command.chat-logs.disabled": "Disabled chat logs for %s",
+	"fabric-command-monitor.command.chat-logs.enabled-currently": "Chat logs are enabled for %s",
+	"fabric-command-monitor.command.chat-logs.disabled-currently": "Chat logs are disabled for %s",
 	"fabric-command-monitor.command.use-ops-list.enabled": "Using ops list for command monitor",
 	"fabric-command-monitor.command.use-ops-list.disabled": "Not using ops list for command monitor",
 	"fabric-command-monitor.command.privileged": "Privileged %s to use the command monitor",

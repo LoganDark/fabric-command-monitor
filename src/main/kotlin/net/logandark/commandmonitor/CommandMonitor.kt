@@ -75,7 +75,7 @@ object CommandMonitor : ModInitializer {
 	 * Returns `true` if [profile] is allowed to see command monitor logs in
 	 * their chat.
 	 */
-	fun canSeeLogs(profile: GameProfile): Boolean {
+	fun canSeeChatLogs(profile: GameProfile): Boolean {
 		return Permissions.canSeeChatLogs(profile)
 	}
 

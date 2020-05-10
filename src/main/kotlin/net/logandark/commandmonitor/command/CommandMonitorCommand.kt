@@ -36,6 +36,23 @@ object CommandMonitorCommand {
 				|| CommandMonitor.isPrivileged(ctx.player.gameProfile)
 		}
 
+		forSelfOrSomeoneElse(chatLogs) { ctx, player ->
+			ctx.source.sendFeedback(
+				SSTranslatableText(
+					CommandMonitor.translationKey(
+						if (CommandMonitor.canSeeChatLogs(player.gameProfile))
+							"command.chat-logs.enabled-currently"
+						else
+							"command.chat-logs.disabled-currently"
+					),
+					player.displayName
+				),
+				false
+			)
+
+			1
+		}
+
 		forSelfOrSomeoneElse(chatLogsEnable) { ctx, player ->
 			Permissions.setCanSeeChatLogs(player.gameProfile, true)
 

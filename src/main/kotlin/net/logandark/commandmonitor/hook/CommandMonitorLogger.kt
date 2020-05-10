@@ -32,7 +32,7 @@ object CommandMonitorLogger {
 
 		// second, send it to all authorized players
 		server.playerManager.playerList.forEach {
-			if (CommandMonitor.canSeeLogs(it.gameProfile))
+			if (CommandMonitor.canSeeChatLogs(it.gameProfile))
 				it.commandSource.sendFeedback(
 					LiteralText("")
 						.append(titleComponent.deepCopy())
