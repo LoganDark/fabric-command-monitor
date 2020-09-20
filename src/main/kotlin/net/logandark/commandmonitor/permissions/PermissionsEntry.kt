@@ -3,7 +3,7 @@ package net.logandark.commandmonitor.permissions
 import com.google.gson.JsonObject
 import com.mojang.authlib.GameProfile
 import net.minecraft.server.ServerConfigEntry
-import java.util.*
+import java.util.UUID
 
 class PermissionsEntry(
 	val profile: GameProfile
@@ -39,6 +39,11 @@ class PermissionsEntry(
 	 */
 	var chatLogs: Boolean = false
 
+	/**
+	 * If this user is doomed to see command block logs in their chat
+	 */
+	var commandBlockLogs: Boolean = false
+
 	constructor(serialized: JsonObject) : this(getProfileFromJson(serialized)) {
 		deserializeFrom(serialized)
 	}
@@ -50,6 +55,7 @@ class PermissionsEntry(
 		writeProfileToJson(profile, jsonObject)
 		jsonObject.addProperty("isPrivileged", isPrivileged)
 		jsonObject.addProperty("chatLogs", chatLogs)
+		jsonObject.addProperty("commandBlockLogs", commandBlockLogs)
 	}
 
 	/**
@@ -61,10 +67,11 @@ class PermissionsEntry(
 	private fun deserializeFrom(serialized: JsonObject) {
 		isPrivileged = serialized.get("isPrivileged").asBoolean
 		chatLogs = serialized.get("chatLogs").asBoolean
+		commandBlockLogs = serialized.get("commandBlockLogs")?.asBoolean ?: false
 	}
 
 	/**
 	 * Returns true if this entry can be omitted from the serialized data.
 	 */
-	override fun isInvalid() = !isPrivileged && !chatLogs
+	override fun isInvalid() = !isPrivileged && !chatLogs && !commandBlockLogs
 }

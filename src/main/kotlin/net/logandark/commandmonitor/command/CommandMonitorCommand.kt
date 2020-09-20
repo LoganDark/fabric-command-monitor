@@ -6,6 +6,7 @@ import com.mojang.brigadier.context.CommandContext
 import net.logandark.commandmonitor.CommandMonitor
 import net.logandark.commandmonitor.SSTranslatableText
 import net.logandark.commandmonitor.config.CommandMonitorConfig
+import net.logandark.commandmonitor.hook.CommandExecutionHandler
 import net.logandark.commandmonitor.mixin.MixinServerCommandSource
 import net.logandark.commandmonitor.permissions.Permissions
 import net.minecraft.command.arguments.EntityArgumentType
@@ -24,12 +25,16 @@ object CommandMonitorCommand {
 		val chatLogs = CommandManager.literal("chat-logs")
 		val chatLogsEnable = CommandManager.literal("enable")
 		val chatLogsDisable = CommandManager.literal("disable")
+		val commandBlockLogs = CommandManager.literal("command-block-logs")
+		val commandBlockLogsEnable = CommandManager.literal("enable")
+		val commandBlockLogsDisable = CommandManager.literal("disable")
 		val useOpsList = CommandManager.literal("use-ops-list")
 		val useOpsListEnable = CommandManager.literal("enable")
 		val useOpsListDisable = CommandManager.literal("disable")
 		val privilege = CommandManager.literal("privilege")
 		val unprivilege = CommandManager.literal("unprivilege")
 		val privileges = CommandManager.literal("privileges")
+		val commandBlocks = CommandManager.literal("command-blocks")
 
 		root.requires { ctx ->
 			(ctx as MixinServerCommandSource).output == CommandMonitor.server
@@ -73,6 +78,51 @@ object CommandMonitorCommand {
 			ctx.source.sendFeedback(
 				SSTranslatableText(
 					CommandMonitor.translationKey("command.chat-logs.disabled"),
+					player.displayName
+				),
+				false
+			)
+
+			1
+		}
+
+		forSelfOrSomeoneElse(commandBlockLogs) { ctx, player ->
+			ctx.source.sendFeedback(
+				SSTranslatableText(
+					CommandMonitor.translationKey(
+						if (CommandMonitor.canSeeCommandBlockLogs(player.gameProfile))
+							"command.command-block-logs.enabled-currently"
+						else
+							"command.command-block-logs.disabled-currently"
+					),
+					player.displayName
+				),
+				false
+			)
+
+			1
+		}
+
+		forSelfOrSomeoneElse(commandBlockLogsEnable) { ctx, player ->
+			Permissions.setCanSeeCommandBlockLogs(player.gameProfile, true)
+
+			ctx.source.sendFeedback(
+				SSTranslatableText(
+					CommandMonitor.translationKey("command.command-block-logs.enabled"),
+					player.displayName
+				),
+				false
+			)
+
+			1
+		}
+
+		forSelfOrSomeoneElse(commandBlockLogsDisable) { ctx, player ->
+			Permissions.setCanSeeCommandBlockLogs(player.gameProfile, false)
+
+			ctx.source.sendFeedback(
+				SSTranslatableText(
+					CommandMonitor.translationKey("command.command-block-logs.disabled"),
 					player.displayName
 				),
 				false
@@ -215,11 +265,20 @@ object CommandMonitorCommand {
 			1
 		}
 
+		commandBlocks.executes { ctx ->
+			CommandExecutionHandler.cbWaiting.add(ctx.source)
+			1
+		}
+
 		dispatcher.register(
 			root.then(
 				chatLogs
 					.then(chatLogsEnable)
 					.then(chatLogsDisable)
+			).then(
+				commandBlockLogs
+					.then(commandBlockLogsEnable)
+					.then(commandBlockLogsDisable)
 			).then(
 				useOpsList
 					.then(useOpsListEnable)
@@ -228,6 +287,7 @@ object CommandMonitorCommand {
 				.then(privilege)
 				.then(unprivilege)
 				.then(privileges)
+				.then(commandBlocks)
 		)
 	}
 

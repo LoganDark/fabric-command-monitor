@@ -31,23 +31,39 @@ object Permissions : ServerConfigList<GameProfile, PermissionsEntry>(
 	}
 
 	/**
-	 * Returns true if this profile can see chat logs.
-	 */
-	fun canSeeChatLogs(profile: GameProfile): Boolean = get(profile)?.chatLogs ?: false
-
-	/**
-	 * Sets this profile's ability to see chat logs.
-	 */
-	fun setCanSeeChatLogs(profile: GameProfile, value: Boolean) = modifyEntry(profile) { it.chatLogs = value }
-
-	/**
 	 * Returns true if this profile is explicitly allowed via the permissions
 	 * system. Separate from the ops list.
 	 */
-	fun isPrivileged(profile: GameProfile): Boolean = get(profile)?.isPrivileged ?: false
+	fun isPrivileged(profile: GameProfile): Boolean =
+		get(profile)?.isPrivileged ?: false
 
 	/**
 	 * Sets this profile's privilege status.
 	 */
-	fun setPrivileged(profile: GameProfile, value: Boolean) = modifyEntry(profile) { it.isPrivileged = value }
+	fun setPrivileged(profile: GameProfile, value: Boolean) =
+		modifyEntry(profile) { it.isPrivileged = value }
+
+	/**
+	 * Returns true if this profile can see chat logs.
+	 */
+	fun canSeeChatLogs(profile: GameProfile): Boolean =
+		get(profile)?.chatLogs ?: false
+
+	/**
+	 * Sets this profile's ability to see chat logs.
+	 */
+	fun setCanSeeChatLogs(profile: GameProfile, value: Boolean) =
+		modifyEntry(profile) { it.chatLogs = value }
+
+	/**
+	 * Returns true if this profile can see chat logs.
+	 */
+	fun canSeeCommandBlockLogs(profile: GameProfile): Boolean =
+		get(profile)?.commandBlockLogs ?: false
+
+	/**
+	 * Sets this profile's ability to see chat logs.
+	 */
+	fun setCanSeeCommandBlockLogs(profile: GameProfile, value: Boolean) =
+		modifyEntry(profile) { it.commandBlockLogs = value }
 }

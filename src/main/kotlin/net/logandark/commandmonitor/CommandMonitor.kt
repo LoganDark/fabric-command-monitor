@@ -5,6 +5,7 @@ import net.fabricmc.api.EnvType
 import net.fabricmc.api.ModInitializer
 import net.fabricmc.loader.api.FabricLoader
 import net.logandark.commandmonitor.config.CommandMonitorConfig
+import net.logandark.commandmonitor.data.CommandBlockEvent
 import net.logandark.commandmonitor.hook.CommandExecutionHandler
 import net.logandark.commandmonitor.hook.CommandMonitorLogger
 import net.logandark.commandmonitor.permissions.Permissions
@@ -80,6 +81,14 @@ object CommandMonitor : ModInitializer {
 	}
 
 	/**
+	 * Returns `true` if [profile] is allowed to see command block logs in
+	 * their chat.
+	 */
+	fun canSeeCommandBlockLogs(profile: GameProfile): Boolean {
+		return Permissions.canSeeCommandBlockLogs(profile)
+	}
+
+	/**
 	 * Returns `true` if [profile] is allowed to use command monitor commands.
 	 */
 	fun isPrivileged(profile: GameProfile): Boolean {
@@ -94,24 +103,40 @@ object CommandMonitor : ModInitializer {
 	 */
 	fun preCommand(manager: CommandManager, source: ServerCommandSource, command: String): Boolean {
 		val authorized = CommandExecutionHandler.preCommand(manager, source, command)
+		val commandBlockEvent = CommandBlockEvent.from(source, command)
 
-		CommandMonitorLogger.log(
-			SSTranslatableText(
-				translationKey(if (authorized) "log.run" else "log.attempt"),
-				source.displayName,
-				LiteralText(command).styled {
-					it.hoverEvent = HoverEvent(
-						HoverEvent.Action.SHOW_TEXT,
-						SSTranslatableText(translationKey("log.click_to_copy"))
-					)
+		if (commandBlockEvent == null || !CommandExecutionHandler.isRepeat(commandBlockEvent))
+			CommandMonitorLogger.log(
+				SSTranslatableText(
+					translationKey(
+						if (authorized)
+							if (commandBlockEvent == null)
+								"log.run"
+							else
+								"log.started_running"
+						else
+							"log.attempt"
+					),
+					commandBlockEvent?.textRef() ?: source.displayName,
+					LiteralText(command).styled {
+						it.hoverEvent = HoverEvent(
+							HoverEvent.Action.SHOW_TEXT,
+							SSTranslatableText(translationKey("log.click_to_copy"))
+						)
 
-					it.clickEvent = ClickEvent(
-						ClickEvent.Action.COPY_TO_CLIPBOARD,
-						command
-					)
-				}
-			)
-		)
+						it.clickEvent = ClickEvent(
+							ClickEvent.Action.COPY_TO_CLIPBOARD,
+							command
+						)
+					}
+				),
+				true
+			) {
+				if (commandBlockEvent != null)
+					canSeeCommandBlockLogs(it.gameProfile)
+				else
+					canSeeChatLogs(it.gameProfile)
+			}
 
 		return authorized
 	}

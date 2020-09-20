@@ -6,6 +6,7 @@
 		"MixinCommandManager",
 		"MixinLanguage",
 		"MixinMinecraftDedicatedServer",
+		"MixinMinecraftServer",
 		"MixinServerCommandSource",
 		"MixinServerConfigList",
 		"MixinSharedConstants"

@@ -1,8 +1,8 @@
 package net.logandark.commandmonitor.mixin;
 
 import com.mojang.brigadier.CommandDispatcher;
-import net.logandark.commandmonitor.command.CommandMonitorCommand;
 import net.logandark.commandmonitor.CommandMonitor;
+import net.logandark.commandmonitor.command.CommandMonitorCommand;
 import net.minecraft.server.command.CommandManager;
 import net.minecraft.server.command.ServerCommandSource;
 import org.spongepowered.asm.mixin.Final;

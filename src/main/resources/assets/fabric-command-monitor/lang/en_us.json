@@ -3,15 +3,22 @@
 	"fabric-command-monitor.config.use-ops-list": "Use Ops List",
 	"fabric-command-monitor.log.attempt": "%s attempted to run: %s",
 	"fabric-command-monitor.log.run": "%s ran command: %s",
+	"fabric-command-monitor.log.started_running": "%s started running command: %s",
 	"fabric-command-monitor.log.click_to_copy": "Click to copy to clipboard",
+	"fabric-command-monitor.log.click_to_suggest": "Click to suggest command",
 	"fabric-command-monitor.log.name": "CommandMonitor",
 	"fabric-command-monitor.command.chat-logs.enabled": "Enabled chat logs for %s",
 	"fabric-command-monitor.command.chat-logs.disabled": "Disabled chat logs for %s",
 	"fabric-command-monitor.command.chat-logs.enabled-currently": "Chat logs are enabled for %s",
 	"fabric-command-monitor.command.chat-logs.disabled-currently": "Chat logs are disabled for %s",
+	"fabric-command-monitor.command.command-block-logs.enabled": "Enabled command block logs for %s",
+	"fabric-command-monitor.command.command-block-logs.disabled": "Disabled command block logs for %s",
+	"fabric-command-monitor.command.command-block-logs.enabled-currently": "Command block logs are enabled for %s",
+	"fabric-command-monitor.command.command-block-logs.disabled-currently": "Command block logs are disabled for %s",
 	"fabric-command-monitor.command.use-ops-list.enabled": "Using ops list for command monitor",
 	"fabric-command-monitor.command.use-ops-list.disabled": "Not using ops list for command monitor",
 	"fabric-command-monitor.command.privileged": "Privileged %s to use the command monitor",
 	"fabric-command-monitor.command.unprivileged": "Unprivileged %s from the command monitor",
-	"fabric-command-monitor.command.privileges": "List of privileged users:"
+	"fabric-command-monitor.command.privileges": "List of privileged users:",
+	"fabric-command-monitor.command.command-blocks.tick": "List of command blocks that have run commands this tick:"
 }
