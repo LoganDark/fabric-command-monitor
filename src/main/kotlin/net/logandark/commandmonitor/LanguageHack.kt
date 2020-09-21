@@ -7,7 +7,6 @@ import java.nio.file.Files
 
 object LanguageHack {
 	fun activate(modid: String, consumer: (String, String) -> Any?) {
-		val language = Language.getInstance()
 		val inputStream = Files.newInputStream(
 			FabricLoader.getInstance()
 				.getModContainer(modid).get()

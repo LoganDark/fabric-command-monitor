@@ -1,9 +1,7 @@
 package net.logandark.commandmonitor
 
 import com.mojang.authlib.GameProfile
-import net.fabricmc.api.EnvType
 import net.fabricmc.api.ModInitializer
-import net.fabricmc.loader.api.FabricLoader
 import net.logandark.commandmonitor.config.CommandMonitorConfig
 import net.logandark.commandmonitor.data.CommandBlockEvent
 import net.logandark.commandmonitor.hook.CommandExecutionHandler
@@ -62,7 +60,7 @@ object CommandMonitor : ModInitializer {
 		return if (CommandMonitorConfig.useOpsList.get())
 			true
 		else
-			(server as? IntegratedServer)?.isHost(profile) ?: false
+			server.isSinglePlayer && (server as? IntegratedServer)?.isHost(profile) ?: false
 	}
 
 	/**
