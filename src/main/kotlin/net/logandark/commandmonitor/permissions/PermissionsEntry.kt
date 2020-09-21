@@ -51,7 +51,7 @@ class PermissionsEntry(
 	/**
 	 * Writes this entry's data into the provided [JsonObject].
 	 */
-	override fun serialize(jsonObject: JsonObject) {
+	override fun fromJson(jsonObject: JsonObject) {
 		writeProfileToJson(profile, jsonObject)
 		jsonObject.addProperty("isPrivileged", isPrivileged)
 		jsonObject.addProperty("chatLogs", chatLogs)

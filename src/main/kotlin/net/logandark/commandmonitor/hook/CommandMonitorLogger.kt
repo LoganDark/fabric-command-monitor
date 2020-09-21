@@ -6,19 +6,16 @@ import net.minecraft.server.network.ServerPlayerEntity
 import net.minecraft.text.LiteralText
 import net.minecraft.text.Text
 import net.minecraft.util.Formatting
+import java.util.UUID
 
 object CommandMonitorLogger {
 	private val titleComponent: Text =
 		LiteralText("[")
-			.styled {
-				it.color = Formatting.DARK_AQUA
-			}
+			.styled { it.withColor(Formatting.DARK_AQUA) }
 			.append(
 				SSTranslatableText(
 					CommandMonitor.translationKey("log.name")
-				).styled {
-					it.color = Formatting.AQUA
-				}
+				).styled { it.withColor(Formatting.AQUA) }
 			)
 			.append(LiteralText("]"))
 
@@ -29,13 +26,13 @@ object CommandMonitorLogger {
 		val server = CommandMonitor.server
 
 		if (console)
-			server.sendMessage(text)
+			server.sendSystemMessage(text, UUID.randomUUID())
 
 		server.playerManager.playerList.forEach {
 			if (predicate(it))
 				it.commandSource.sendFeedback(
 					LiteralText("")
-						.append(titleComponent.deepCopy())
+						.append(titleComponent.shallowCopy())
 						.append(" ")
 						.append(text),
 					false

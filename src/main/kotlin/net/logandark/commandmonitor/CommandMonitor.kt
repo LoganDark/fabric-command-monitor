@@ -12,6 +12,7 @@ import net.logandark.commandmonitor.permissions.Permissions
 import net.minecraft.server.MinecraftServer
 import net.minecraft.server.command.CommandManager
 import net.minecraft.server.command.ServerCommandSource
+import net.minecraft.server.integrated.IntegratedServer
 import net.minecraft.text.ClickEvent
 import net.minecraft.text.HoverEvent
 import net.minecraft.text.LiteralText
@@ -36,9 +37,7 @@ object CommandMonitor : ModInitializer {
 		// The registration of CommandMonitorCommand is handled by
 		// MixinCommandManager.
 
-		// And activate the language hack for localizations on server.
-		if (FabricLoader.getInstance().environmentType == EnvType.SERVER)
-			LanguageHack.activate(modid)
+		// And the language hack is handled by MixinLanguage
 	}
 
 	/**
@@ -63,7 +62,7 @@ object CommandMonitor : ModInitializer {
 		return if (CommandMonitorConfig.useOpsList.get())
 			true
 		else
-			CommandMonitor.server.isSinglePlayer && CommandMonitor.server.isOwner(profile)
+			(server as? IntegratedServer)?.isHost(profile) ?: false
 	}
 
 	/**
@@ -111,16 +110,18 @@ object CommandMonitor : ModInitializer {
 						else
 							"log.attempt"
 					),
-					commandBlockEvent?.textRef() ?: source.displayName,
+					commandBlockEvent?.textRef(source.minecraftServer.registryManager) ?: source.displayName,
 					LiteralText(command).styled {
-						it.hoverEvent = HoverEvent(
-							HoverEvent.Action.SHOW_TEXT,
-							SSTranslatableText(translationKey("log.click_to_copy"))
-						)
-
-						it.clickEvent = ClickEvent(
-							ClickEvent.Action.COPY_TO_CLIPBOARD,
-							command
+						it.withHoverEvent(
+							HoverEvent(
+								HoverEvent.Action.SHOW_TEXT,
+								SSTranslatableText(translationKey("log.click_to_copy"))
+							)
+						).withClickEvent(
+							ClickEvent(
+								ClickEvent.Action.COPY_TO_CLIPBOARD,
+								command
+							)
 						)
 					}
 				),

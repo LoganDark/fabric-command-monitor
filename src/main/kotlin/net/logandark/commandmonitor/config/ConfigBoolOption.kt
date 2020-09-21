@@ -6,6 +6,7 @@ import me.shedaniel.clothconfig2.api.AbstractConfigListEntry
 import me.shedaniel.clothconfig2.api.ConfigEntryBuilder
 import net.logandark.commandmonitor.CommandMonitor
 import net.logandark.config.Config
+import net.minecraft.text.TranslatableText
 
 class ConfigBoolOption(
 	name: String,
@@ -20,7 +21,7 @@ class ConfigBoolOption(
 ) {
 	override fun makeEntry(entryBuilder: ConfigEntryBuilder) =
 		entryBuilder
-			.startBooleanToggle(translationKey, get())
+			.startBooleanToggle(TranslatableText(translationKey), get())
 			.setDefaultValue(defaultValue)
 			.setSaveConsumer(this::set)
 			.build()

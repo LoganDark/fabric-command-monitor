@@ -22,7 +22,9 @@ class SSTranslatableText(
 		ctx: JsonSerializationContext
 	): JsonObject {
 		@Suppress("CAST_NEVER_SUCCEEDS")
-		(this as MixinTranslatableText).callUpdateTranslations()
+		val mixin = (this as MixinTranslatableText)
+
+		mixin.callUpdateTranslations()
 
 		val jsonObject = JsonObject()
 		val betterSerializer = serializer as TextSerializerDuck
@@ -34,8 +36,11 @@ class SSTranslatableText(
 
 		val extra = JsonArray()
 
-		for (translation in translations)
-			extra.add(serializer.serialize(translation, translation.javaClass, ctx))
+		for (translation in mixin.translations)
+			if (translation is Text)
+				extra.add(serializer.serialize(translation, translation.javaClass, ctx))
+			else
+				extra.add(translation.string)
 
 		for (sibling in siblings)
 			extra.add(serializer.serialize(sibling, sibling.javaClass, ctx))
@@ -49,7 +54,7 @@ class SSTranslatableText(
 	override fun copy(): SSTranslatableText {
 		val objects = this.args.map {
 			if (it is Text) {
-				it.deepCopy()
+				it.shallowCopy()
 			} else {
 				it
 			}

@@ -25,17 +25,21 @@ dependencies {
 	mappings "net.fabricmc:yarn:${project.yarn_mappings}:v2"
 	modImplementation "net.fabricmc:fabric-loader:${project.loader_version}"
 
-	// Fabric API. This is technically optional, but you probably want it anyway.
-	//modImplementation "net.fabricmc.fabric-api:fabric-api:${project.fabric_version}"
+	// only included because a couple dependencies need it - we don't
+	modImplementation "net.fabricmc.fabric-api:fabric-api:${project.fabric_version}"
 
 	modImplementation "net.fabricmc:fabric-language-kotlin:${project.fabric_kotlin_version}"
 
 	// ModMenu
-	modImplementation "io.github.prospector:modmenu:1.10.1+build.30"
+	modImplementation("io.github.prospector:modmenu:1.14.6+build.31") {
+		exclude module: 'fabric-api' // includes bad fapi
+	}
 
 	// config
-	modImplementation "me.shedaniel.cloth:config-2:2.13.4"
-	modImplementation("net.logandark:ld-config:1.0.0") {
+	modImplementation("me.shedaniel.cloth:config-2:4.8.1") {
+		exclude module: 'fabric-api' // also includes bad fapi
+	}
+	modImplementation("net.logandark:ld-config:1.0.1+1.16") {
 		transitive = false
 	}
 

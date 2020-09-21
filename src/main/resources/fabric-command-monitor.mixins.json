@@ -4,7 +4,6 @@
 	"compatibilityLevel": "JAVA_8",
 	"mixins": [
 		"MixinCommandManager",
-		"MixinLanguage",
 		"MixinMinecraftDedicatedServer",
 		"MixinMinecraftServer",
 		"MixinServerCommandSource",
@@ -12,7 +11,7 @@
 		"MixinSharedConstants"
 	],
 	"client": ["AntiCoronavirus", "MixinIntegratedServer"],
-	"server": ["MixinTextSerializer", "MixinTranslatableText"],
+	"server": ["MixinLanguage", "MixinTextSerializer", "MixinTranslatableText"],
 	"injectors": {
 		"defaultRequire": 1
 	}

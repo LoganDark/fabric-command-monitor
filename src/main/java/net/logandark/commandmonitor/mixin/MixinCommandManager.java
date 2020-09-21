@@ -32,7 +32,7 @@ abstract class MixinCommandManager {
 		at = @At("RETURN"),
 		method = "<init>"
 	)
-	private void fabric_command_monitor_onInit(boolean isDedicatedServer, CallbackInfo ci) {
+	private void fabric_command_monitor_onInit(CommandManager.RegistrationEnvironment environment, CallbackInfo ci) {
 		fabric_command_monitor_skipTimes = 0;
 
 		CommandMonitorCommand.INSTANCE.register(dispatcher);

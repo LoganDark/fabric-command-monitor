@@ -58,7 +58,7 @@ object CommandExecutionHandler {
 			)
 
 			for (event in cbEvents) {
-				source.sendFeedback(event.textEntry(), false)
+				source.sendFeedback(event.textEntry(source.minecraftServer.registryManager), false)
 			}
 		}
 	}

@@ -9,7 +9,7 @@ import net.logandark.commandmonitor.config.CommandMonitorConfig
 import net.logandark.commandmonitor.hook.CommandExecutionHandler
 import net.logandark.commandmonitor.mixin.MixinServerCommandSource
 import net.logandark.commandmonitor.permissions.Permissions
-import net.minecraft.command.arguments.EntityArgumentType
+import net.minecraft.command.argument.EntityArgumentType
 import net.minecraft.server.command.CommandManager
 import net.minecraft.server.command.ServerCommandSource
 import net.minecraft.server.network.ServerPlayerEntity
@@ -232,17 +232,19 @@ object CommandMonitorCommand {
 			Permissions.values().stream().forEach { entry ->
 				val profile = entry.profile
 				val player = CommandMonitor.server.playerManager.getPlayer(profile.id)
-				val text = player?.displayName ?: LiteralText(profile.name)
+				val text = player?.displayName?.copy() ?: LiteralText(profile.name)
 
 				text.styled { style ->
-					style.hoverEvent = HoverEvent(
-						HoverEvent.Action.SHOW_TEXT,
-						LiteralText(profile.id.toString())
-					)
-
-					style.clickEvent = ClickEvent(
-						ClickEvent.Action.COPY_TO_CLIPBOARD,
-						profile.id.toString()
+					style.withHoverEvent(
+						HoverEvent(
+							HoverEvent.Action.SHOW_TEXT,
+							LiteralText(profile.id.toString())
+						)
+					).withClickEvent(
+						ClickEvent(
+							ClickEvent.Action.COPY_TO_CLIPBOARD,
+							profile.id.toString()
+						)
 					)
 				}
 
@@ -253,7 +255,7 @@ object CommandMonitorCommand {
 						LiteralText("")
 							.append(text)
 							.append(LiteralText(" (offline)").styled { style ->
-								style.color = Formatting.DARK_GRAY
+								style.withColor(Formatting.DARK_GRAY)
 							})
 					)
 				}
