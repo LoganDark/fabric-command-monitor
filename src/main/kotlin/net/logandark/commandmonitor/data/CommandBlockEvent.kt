@@ -27,7 +27,7 @@ data class CommandBlockEvent(
 	companion object {
 		fun from(source: ServerCommandSource, command: String): CommandBlockEvent? =
 			((source as MixinServerCommandSource).output as? CommandBlockExecutor)?.let {
-				CommandBlockEvent(it.world, BlockPos(it.pos), source.displayName, command, it)
+				CommandBlockEvent(it.world, BlockPos(it.source.position), source.displayName, command, it)
 			}
 	}
 
