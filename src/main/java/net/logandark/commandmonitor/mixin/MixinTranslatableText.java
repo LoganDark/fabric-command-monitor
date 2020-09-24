@@ -10,9 +10,9 @@ import java.util.List;
 
 @Mixin(TranslatableText.class)
 public interface MixinTranslatableText {
-	@Invoker
-	void callUpdateTranslations();
+	@Invoker("updateTranslations")
+	void fabric_command_monitor_updateTranslations();
 
-	@Accessor
-	List<StringVisitable> getTranslations();
+	@Accessor("translations")
+	List<StringVisitable> fabric_command_monitor_getTranslations();
 }

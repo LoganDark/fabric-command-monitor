@@ -16,7 +16,8 @@ public class MixinLanguage {
 		method = "create",
 		at = @At(
 			value = "INVOKE",
-			target = "Lcom/google/common/collect/ImmutableMap$Builder;build()Lcom/google/common/collect/ImmutableMap;"
+			target = "Lcom/google/common/collect/ImmutableMap$Builder;build()Lcom/google/common/collect/ImmutableMap;",
+			remap = false
 		),
 		locals = LocalCapture.CAPTURE_FAILHARD
 	)

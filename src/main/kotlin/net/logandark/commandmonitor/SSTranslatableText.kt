@@ -24,7 +24,7 @@ class SSTranslatableText(
 		@Suppress("CAST_NEVER_SUCCEEDS")
 		val mixin = (this as MixinTranslatableText)
 
-		mixin.callUpdateTranslations()
+		mixin.fabric_command_monitor_updateTranslations()
 
 		val jsonObject = JsonObject()
 		val betterSerializer = serializer as TextSerializerDuck
@@ -36,7 +36,7 @@ class SSTranslatableText(
 
 		val extra = JsonArray()
 
-		for (translation in mixin.translations)
+		for (translation in mixin.fabric_command_monitor_getTranslations())
 			if (translation is Text)
 				extra.add(serializer.serialize(translation, translation.javaClass, ctx))
 			else
